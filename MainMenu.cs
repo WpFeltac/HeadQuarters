@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace HeadQuarters
 {
-    public class Program
+    public class MainMenu
     {
         static void Main()
         {
@@ -74,7 +74,7 @@ namespace HeadQuarters
 
         private static void CreateNewGame()
         {
-            Game sv1 = new Game();            
+            GameData sv1 = new GameData();            
 
             Console.Clear();
             Console.WriteLine("Create new game\n--------------------");
@@ -90,10 +90,11 @@ namespace HeadQuarters
             {
                 Directory.CreateDirectory("saves");
             }
-            GameSave.WriteToXmlFile<Game>(Directory.GetCurrentDirectory() + @"\saves\" + sv1.Name + ".xml", sv1, false);
+            
+            GameSave.WriteToXmlFile<GameData>(Directory.GetCurrentDirectory() + @"\saves\" + sv1.Name + ".xml", sv1, false);
 
             UserInterface ui = new UserInterface();
-            ui.InitializeUI(true, sv1);
+            ui.Initialize(true, sv1);
         }
 
         private static void LoadSavedGame()
@@ -180,9 +181,9 @@ namespace HeadQuarters
 
                         if (index.ContainsKey(userChoice))
                         {
-                            Game sv = GameSave.ReadFromXmlFile<Game>(filepath + index[userChoice]);
+                            GameData sv = GameSave.ReadFromXmlFile<GameData>(filepath + index[userChoice]);
                             UserInterface ui = new UserInterface();
-                            ui.InitializeUI(false, sv);
+                            ui.Initialize(false, sv);
                             isLoaded = true;
                         }
                         else
@@ -239,9 +240,9 @@ namespace HeadQuarters
                         {
                             Console.WriteLine("Please choose a valid option");
                         }
-                        
-                        break;
 
+                        RunMenu();
+                        break;
                 }
 
             }

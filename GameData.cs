@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HeadQuarters
 {
-    public class Game
+    public class GameData
     {
         //Game name
         string name;
@@ -97,5 +97,8 @@ namespace HeadQuarters
 
         }
 
+        //Player Divisions
+        public List<Division> divisionList = new List<Division>();
     }
+
 }
