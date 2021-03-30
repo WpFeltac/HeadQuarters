@@ -270,7 +270,7 @@ namespace HeadQuarters
 
         private void DeleteDiv(GameData sv)
         {
-
+            
         }
     }
     
