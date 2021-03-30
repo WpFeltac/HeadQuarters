@@ -9,6 +9,7 @@
     <AssemblyOriginatorKeyFile>headquarters.pfx</AssemblyOriginatorKeyFile>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.1</FileVersion>
+    <ApplicationIcon>HeadQuartersIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
 </Project>

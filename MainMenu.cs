@@ -9,6 +9,7 @@ namespace HeadQuarters
     {
         static void Main()
         {
+            Console.Title = "HeadQuarters";
             RunMenu();         
         }
 
