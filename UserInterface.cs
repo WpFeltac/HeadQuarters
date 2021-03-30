@@ -269,19 +269,11 @@ namespace HeadQuarters
                 if(div.ID == existingDivs.ID)
                 {
                     Random r = new Random();
-                    div.Number = r.Next(999);
-                    sv.divisionList.Add(div);
-                }
-                else
-                {
-                    sv.divisionList.Add(div);
+                    div.Number = r.Next(999);                                     
                 }
             }
 
-            if(sv.divisionList.Count == 0)
-            {
-                sv.divisionList.Add(div);
-            }
+            sv.divisionList.Add(div);
 
             Console.Clear();
             ManageDiv(sv);          

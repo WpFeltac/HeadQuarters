@@ -29,33 +29,36 @@ namespace HeadQuarters
         public string Type { get { return types[typeIndex]; } }
 
         //Ordinal (st, nd, rd, th)
-        public string Ordinal { get; }
+        public string Ordinal
+        {
+            get
+            {
+                int last = Number % 10;
+                switch (last)
+                {
+                    case 1:
+                        return "st";
+                    case 2:
+                        return "nd";
+                    case 3:
+                        return "rd";
+                    default:
+                        return "th";
+                }
+
+            }
+        }
 
         //Number
         public int Number { get; set; }
-
+         
         public Division()
         {
             Random r = new Random();
-            Number = r.Next(999);
-
-            int last = Number % 10;
-            switch (last)
-            {
-                case 1:
-                    Ordinal = "st";
-                    break;
-                case 2:
-                    Ordinal = "nd";
-                    break;
-                case 3:
-                    Ordinal = "rd";
-                    break;
-                default:
-                    Ordinal = "th";
-                    break;
-            }
-            
+            Number = r.Next(999);                      
         }
+
+        //Veterancy
+
     }
 }
