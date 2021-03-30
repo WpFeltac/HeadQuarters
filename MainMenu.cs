@@ -39,7 +39,7 @@ namespace HeadQuarters
             bool isValid = false;
 
             Console.Clear();
-            Console.WriteLine("HeadQuarters v" + Assembly.GetEntryAssembly().GetName().Version.ToString() + "\n\n");
+            Console.WriteLine("HeadQuarters v" + Assembly.GetEntryAssembly().GetName().Version.ToString());
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("Menu");
@@ -80,25 +80,53 @@ namespace HeadQuarters
 
             Console.Clear();
             Console.WriteLine("Create new game\n--------------------");
-            Console.WriteLine("Enter the game save name :");
-            sv1.Name = Console.ReadLine();
-            Console.WriteLine("Enter your character name : ");
-            sv1.PlayerName = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("- : Abort");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("--------------------");
             Console.WriteLine();
 
-            //Save the new game
+            //Game Name
+            Console.WriteLine("Enter the game save name :");
+            string nameChoice = Console.ReadLine();
+            if (nameChoice == "-")
+            {
+                RunMenu();
+            }
+            else
+            {
+                sv1.Name = nameChoice;
+            }
+
+            //Player Name
+            Console.WriteLine("Enter your character name : ");
+            string playerNameChoice = Console.ReadLine();
+            if (playerNameChoice == "-")
+            {
+                RunMenu();
+            }
+            else
+            {
+                sv1.PlayerName = playerNameChoice;
+            }
+
+            //Creates the 'saves' directory if doesn't exist
             bool exists = Directory.Exists("saves");
             if (!exists)
             {
                 Directory.CreateDirectory("saves");
             }
             
+            //Saves the game at least once if not aborted
             GameSave.WriteToXmlFile<GameData>(Directory.GetCurrentDirectory() + @"\saves\" + sv1.Name + ".xml", sv1, false);
 
             UserInterface ui = new UserInterface();
             ui.Initialize(true, sv1);
         }
 
+        /// <summary>
+        /// Go to the save files management menu (load and delete)
+        /// </summary>
         private static void LoadSavedGame()
         {
             //Source : https://stackoverflow.com/questions/11861151/find-all-files-in-a-folder            
@@ -142,11 +170,12 @@ namespace HeadQuarters
                         RunMenu();
                         break;
 
+                    //Load
                     case "1":
                         Console.Clear();
                         Console.Clear();
                         //Get saved games list
-                        Console.WriteLine("Saved Games List");
+                        Console.WriteLine("Load a Saved Game");
                         Console.WriteLine("--------------------");
 
                         int count = d.GetFiles().Length;
@@ -179,7 +208,7 @@ namespace HeadQuarters
 
                         if(userChoice == "-")
                         {
-                            RunMenu();
+                            LoadSavedGame();
                         }
 
                         if (index.ContainsKey(userChoice))
@@ -196,17 +225,18 @@ namespace HeadQuarters
                                                
                         break;
 
+                    //Delete
                     case "2":
                         Console.Clear();
                         //Get saved games list
-                        Console.WriteLine("Saved Games List");
+                        Console.WriteLine("Delete a Saved Game");
                         Console.WriteLine("--------------------");
 
                         int count2 = d.GetFiles().Length;
 
                         if (count2 == 0)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("No saved games.");
                             Console.ForegroundColor = ConsoleColor.White;
                         }
@@ -214,7 +244,7 @@ namespace HeadQuarters
                         {
                             foreach (var file in d.GetFiles("*.xml"))
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 string name = Path.GetFileNameWithoutExtension(file.Name);
                                 Console.WriteLine(i + " : " + name);
                                 index.Add(i.ToString(), file.Name);
@@ -224,14 +254,14 @@ namespace HeadQuarters
                         }
 
                         Console.WriteLine("--------------------");
-                        Console.WriteLine("- : Back to Menu");
+                        Console.WriteLine("- : Back");
                         Console.WriteLine();
                         Console.WriteLine("Which file do you want to delete?");
                         string deleteChoice = Console.ReadLine();
 
                         if (deleteChoice == "-")
                         {
-                            RunMenu();
+                            LoadSavedGame();
                         }
 
                         if (index.ContainsKey(deleteChoice))
