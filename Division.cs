@@ -6,8 +6,16 @@ namespace HeadQuarters
 {
     public class Division
     {
+        //Id
+        public string ID
+        {
+            get
+            {
+                return Number.ToString() + Type.Substring(0, 3);
+            }
+        }
         //Type
-        string[] types = new string[]
+        static string[] types = new string[]
         {
             "Infantry",//0
             "Armored",//1
@@ -22,7 +30,7 @@ namespace HeadQuarters
 
         //Ordinal (st, nd, rd, th)
         public string Ordinal { get; }
-        
+
         //Number
         public int Number { get; set; }
 
@@ -47,6 +55,7 @@ namespace HeadQuarters
                     Ordinal = "th";
                     break;
             }
+            
         }
     }
 }

@@ -221,6 +221,7 @@ namespace HeadQuarters
         {
             bool isValid = false ;
 
+            Console.Clear();
             Division div = new Division();
             Console.WriteLine("Which type of Division to you want to create?");
             Console.WriteLine("0 : Infantry\n 1 : Armored\n 2 : Cavalry\n 3: Mountain\n 4 : Airborne\n 5 : Artillery\n 6 : Security");
@@ -262,14 +263,77 @@ namespace HeadQuarters
                         break;
                 }
             }
-         
-            sv.divisionList.Add(div);
+
+            foreach (var existingDivs in sv.divisionList)
+            {
+                if(div.ID == existingDivs.ID)
+                {
+                    Random r = new Random();
+                    div.Number = r.Next(999);
+                    sv.divisionList.Add(div);
+                }
+                else
+                {
+                    sv.divisionList.Add(div);
+                }
+            }
+
+            if(sv.divisionList.Count == 0)
+            {
+                sv.divisionList.Add(div);
+            }
+
             Console.Clear();
             ManageDiv(sv);          
         }
 
         private void DeleteDiv(GameData sv)
         {
+            int i = 1;
+            Dictionary<string, string> ids = new Dictionary<string, string>();
+            bool isDeleted = false;
+
+            while (!isDeleted)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Existing Divisions List");
+                Console.WriteLine("--------------------");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                foreach (var division in sv.divisionList)
+                {
+                    Console.WriteLine(i + " : " + division.Number + division.Ordinal + " " + division.Type + " Division");
+                    ids.Add(i.ToString(), division.ID);
+                    i++;
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("--------------------");
+                Console.WriteLine("- : Back to Menu");
+                Console.WriteLine();
+                Console.WriteLine("Which division do you want to delete?");
+
+                string deleteChoice = Console.ReadLine();
+
+                if (deleteChoice == "-")
+                {
+                    isDeleted = true;
+                    ManageDiv(sv);
+                }
+
+                if (ids.ContainsKey(deleteChoice))
+                {
+                    Division divToDel = new Division();
+                    sv.divisionList.RemoveAll(divToDel => divToDel.ID == ids[deleteChoice]);
+                    isDeleted = true;
+                    Console.Clear();
+                    ManageDiv(sv);
+                }
+                else
+                {
+                    Console.WriteLine("Please choose a valid option");
+                }
+            }
             
         }
     }

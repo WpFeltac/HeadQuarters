@@ -17,8 +17,7 @@ namespace HeadQuarters
         /// </summary>
         public static void RunMenu()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("HeadQuarters v" + Assembly.GetEntryAssembly().GetName().Version.ToString() + "\n\n");
+            Console.ForegroundColor = ConsoleColor.White;            
 
             switch (DisplayMenu())
             {
@@ -40,6 +39,9 @@ namespace HeadQuarters
             bool isValid = false;
 
             Console.Clear();
+            Console.WriteLine("HeadQuarters v" + Assembly.GetEntryAssembly().GetName().Version.ToString() + "\n\n");
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Menu");
             Console.WriteLine("--------------------");
             Console.WriteLine("1 : New Game");
@@ -99,10 +101,11 @@ namespace HeadQuarters
 
         private static void LoadSavedGame()
         {
-            //Source : https://stackoverflow.com/questions/11861151/find-all-files-in-a-folder
+            //Source : https://stackoverflow.com/questions/11861151/find-all-files-in-a-folder            
+            bool isLoaded = false;
+
             int i = 1;
             Dictionary<string, string> index = new Dictionary<string, string>();
-            bool isLoaded = false;
 
             bool exists = Directory.Exists("saves");
 
