@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HeadQuarters
@@ -11,22 +12,40 @@ namespace HeadQuarters
         {
             get
             {
-                return Number.ToString() + Type.Substring(0, 3);
+                return Number.ToString() + TypeName.Substring(0, 3).ToUpper();
             }
         }
+
         //Type
-        static string[] types = new string[]
+        //string is key, int is value (TODO : make the switch)
+        Dictionary<string, int> types = new Dictionary<string, int>()
         {
-            "Infantry",//0
-            "Armored",//1
-            "Cavalry",//2
-            "Mountain",//3
-            "Airborne",//4
-            "Artillery",//5
-            "Security"//6
+            {"Infantry", 0},
+            {"Armored", 1},
+            {"Cavalry", 2},
+            {"Mountain", 3},
+            {"Airborne", 4},
+            {"Artillery", 5},
+            {"Security", 6},
         };
-        public int typeIndex { get; set; }
-        public string Type { get { return types[typeIndex]; } }
+
+        int typeIndex;
+        public string TypeName
+        {
+            get
+            {
+                return types.FirstOrDefault(x => x.Value == typeIndex).Key;
+            }
+        }
+
+        public int TypeIndex
+        {
+            set
+            {
+                typeIndex = value;
+            }
+        }
+
 
         //Ordinal (st, nd, rd, th)
         public string Ordinal
@@ -50,15 +69,46 @@ namespace HeadQuarters
         }
 
         //Number
-        public int Number { get; set; }
-         
-        public Division()
+        static Random r = new Random();
+        int number = r.Next(999);
+        public int Number
         {
-            Random r = new Random();
-            Number = r.Next(999);                      
+            get
+            {
+                return number;
+            }
+
+            set
+            {
+                number = value;
+            }
         }
 
         //Veterancy
+        double level;
+        public int Level
+        {
+            get
+            {
+                level = combatXp / 1000;
+                return (int)Math.Floor(level);
+            }
+        }
+
+        //Xp
+        int combatXp;
+        public int CombatXp
+        {
+            get
+            {
+                return combatXp;
+            }
+
+            set
+            {
+                combatXp = value;
+            }
+        }
 
     }
 }

@@ -38,8 +38,6 @@ namespace HeadQuarters
 
         //Player level
         double level;
-        public int xp;
-
         public double Level
         {
             get
@@ -48,6 +46,21 @@ namespace HeadQuarters
                 return (int)Math.Floor(level);
             }
 
+        }
+
+        //Player xp
+        int xp;
+        public int Xp
+        {
+            get
+            {
+                return xp;
+            }
+
+            set
+            {
+                xp = value;
+            }
         }
         
         //Player money

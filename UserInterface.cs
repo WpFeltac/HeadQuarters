@@ -184,7 +184,7 @@ namespace HeadQuarters
             foreach(var div in sv.divisionList)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(div.Number + div.Ordinal + " " + div.Type + " Division");
+                Console.WriteLine(div.Number + div.Ordinal + " " + div.TypeName + " Division");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine("--------------------");
@@ -231,31 +231,31 @@ namespace HeadQuarters
                 switch (Console.ReadLine())
                 {
                     case "0":
-                        div.typeIndex = 0;
+                        div.TypeIndex = 0;
                         isValid = true;
                         break;
                     case "1":
-                        div.typeIndex = 1;
+                        div.TypeIndex = 1;
                         isValid = true;
                         break;
                     case "2":
-                        div.typeIndex = 2;
+                        div.TypeIndex = 2;
                         isValid = true;
                         break;
                     case "3":
-                        div.typeIndex = 3;
+                        div.TypeIndex = 3;
                         isValid = true;
                         break;
                     case "4":
-                        div.typeIndex = 4;
+                        div.TypeIndex = 4;
                         isValid = true;
                         break;
                     case "5":
-                        div.typeIndex = 5;
+                        div.TypeIndex = 5;
                         isValid = true;
                         break;
                     case "6":
-                        div.typeIndex = 6;
+                        div.TypeIndex = 6;
                         isValid = true;
                         break;
                     default:
@@ -295,7 +295,7 @@ namespace HeadQuarters
                 Console.ForegroundColor = ConsoleColor.Green;
                 foreach (var division in sv.divisionList)
                 {
-                    Console.WriteLine(i + " : " + division.Number + division.Ordinal + " " + division.Type + " Division");
+                    Console.WriteLine(i + " : " + division.Number + division.Ordinal + " " + division.TypeName + " Division");
                     ids.Add(i.ToString(), division.ID);
                     i++;
                 }
